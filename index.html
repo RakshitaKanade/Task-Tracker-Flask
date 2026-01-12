@@ -114,11 +114,11 @@ li {
 
             if (response.ok) {
                 input.value = '';
-                loadTasks(); // Expert Tip: Refresh from DB to ensure the new task has its ID
+                loadTasks(); 
             }
         }
 
-        // UPDATED: Added logic to create a delete button for each task
+        
         async function loadTasks() {
             const response = await fetch('http://127.0.0.1:5000/tasks');
             const tasks = await response.json();
@@ -128,7 +128,7 @@ li {
 
             tasks.forEach(task => {
                 const li = document.createElement('li');
-                // We use backticks (`) to create a template string with a button
+                
                 li.innerHTML = `
                            <span>${task.content}</span>
                 <div>
@@ -141,9 +141,8 @@ li {
     });
         }
 
-        // NEW: Function to handle the DELETE API call
         async function deleteTask(id) {
-            // Confirm with user (Professional standard for MNC apps)
+            
             if (!confirm("Are you sure you want to delete this task?")) return;
 
             const response = await fetch(`http://127.0.0.1:5000/tasks/${id}`, {
@@ -151,7 +150,7 @@ li {
             });
 
             if (response.ok) {
-                loadTasks(); // Refresh the list after successful deletion
+                loadTasks(); 
             } else {
                 alert("Failed to delete task.");
             }
@@ -163,7 +162,7 @@ li {
     });
 
     if (response.ok) {
-        loadTasks(); // Refresh the list to show the "(Completed)" text
+        loadTasks(); 
     }
 } 
 
@@ -171,3 +170,4 @@ li {
     </script>
 </body>
 </html>
+
