@@ -13,7 +13,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-# 1. Define the GET route (READ)
+
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
     conn = sqlite3.connect('tasks.db')
@@ -24,7 +24,7 @@ def get_tasks():
     tasks = [{"id": row[0], "content": row[1]} for row in rows]
     return jsonify(tasks)
 
-# 2. Define the POST route (CREATE)
+
 @app.route('/tasks', methods=['POST'])
 def add_task():
     data = request.json
@@ -39,7 +39,7 @@ def add_task():
 def delete_task(task_id):
     conn = sqlite3.connect('tasks.db')
     cursor = conn.cursor()
-    # SQL query to delete based on the ID passed in the URL
+    
     cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
     conn.commit()
     conn.close()
@@ -49,7 +49,7 @@ def delete_task(task_id):
 def update_task(task_id):
     conn = sqlite3.connect('tasks.db')
     cursor = conn.cursor()
-    # This SQL command finds the task by ID and adds "(Completed)" to the text
+    
     cursor.execute("UPDATE tasks SET content = content || ' (Completed)' WHERE id = ?", (task_id,))
     conn.commit()
     conn.close()
@@ -60,8 +60,8 @@ def home():
     return render_template('index.html')
 
 
-# 3. START the server last
 if __name__ == '__main__':
     init_db()
-    # This must be the very last thing in the file
+
     app.run(debug=True)
+
